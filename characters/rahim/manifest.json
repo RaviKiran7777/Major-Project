@@ -1,0 +1,10 @@
+{
+  "slot": "unknown",
+  "processed_at": "2026-10-16T09:34:22",
+  "char_cfg": "char_cfg.yaml",
+  "texture": "texture.png",
+  "mask": "mask.png",
+  "animations": {
+    "jump": "animations/jump.gif"
+  }
+}
