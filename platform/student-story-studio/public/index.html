@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Studio</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="playground-bg">
+    <div class="container welcome-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 20px;">
+            <a id="btn-return-portal" href="http://localhost:5173" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px; font-weight: 700; padding: 10px 18px; border-radius: 12px; background: white; color: var(--color-primary); box-shadow: 0 4px 6px rgba(0,0,0,0.06); border: 2px solid var(--border);">
+                <i class="fa-solid fa-arrow-left"></i> Back to EduVision
+            </a>
+            <div id="portal-session-indicator" style="display: none; font-size: 0.9em; font-weight: 700; color: #0284c7; background: #e0f2fe; padding: 6px 14px; border-radius: 20px;">
+                🎒 Activity Active
+            </div>
+        </div>
+
+        <header class="home-header">
+            <h1 class="animate-bounce">Story Studio ✨</h1>
+            
+            <img src="/assets/welcome_storybook.jpg" alt="Magical Storybook" class="welcome-img">
+            
+        </header>
+
+        <div class="cards-grid">
+            <a href="/story.html" class="card story-card">
+                <i class="fa-solid fa-wand-magic-sparkles card-icon play-blue-text"></i>
+                <h2>Make a Story</h2>
+            </a>
+
+            <a href="/fixer.html" class="card fixer-card">
+                <i class="fa-solid fa-paintbrush card-icon purple-text"></i>
+                <h2>Fix Drawing</h2>
+            </a>
+        </div>
+
+        <div id="integration-banner" class="integration-banner" style="display: none; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <i class="fa-solid fa-link icon-gap"></i>
+                <span>Linked to EduVision</span>
+                <span id="assignment-context" class="assignment-context" style="display: none;"></span>
+            </div>
+            <a id="banner-return-link" href="http://localhost:5173" style="color: white; text-decoration: underline; font-weight: 700; margin-left: 16px;">
+                Return to Dashboard 🎒
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Phase 3 & 4 Integration Context Extraction
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+        const assignmentId = params.get('assignmentId');
+        const returnUrl = params.get('returnUrl');
+
+        if (returnUrl) {
+            localStorage.setItem('eduvision_return_url', returnUrl);
+        }
+
+        if (token) {
+            localStorage.setItem('eduvision_token', token);
+            if (assignmentId) {
+                localStorage.setItem('eduvision_assignment', assignmentId);
+            }
+            
+            // Clean up the URL
+            window.history.replaceState({}, document.title, "/");
+        }
+
+        // Resolve return destination
+        const savedReturnUrl = localStorage.getItem('eduvision_return_url') || 'http://localhost:5173';
+        const returnBtn = document.getElementById('btn-return-portal');
+        const bannerReturnLink = document.getElementById('banner-return-link');
+        if (returnBtn) returnBtn.href = savedReturnUrl;
+        if (bannerReturnLink) bannerReturnLink.href = savedReturnUrl;
+
+        // Show banner if integrated
+        const savedToken = localStorage.getItem('eduvision_token');
+        const savedAssignment = localStorage.getItem('eduvision_assignment');
+
+        if (savedToken) {
+            document.getElementById('integration-banner').style.display = 'flex';
+            document.getElementById('portal-session-indicator').style.display = 'block';
+            if (savedAssignment) {
+                const ctx = document.getElementById('assignment-context');
+                ctx.textContent = `(Assignment ID: ${savedAssignment})`;
+            }
+        }
+    </script>
+</body>
+</html>

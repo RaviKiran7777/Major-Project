@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story - Rahim's Family</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS migrated to style.css */
+    </style>
+</head>
+<body class="playground-bg">
+    <div class="container">
+        <div class="nav-bar">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <a id="nav-return-portal" href="http://localhost:5173" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; padding: 8px 14px; border-radius: 10px; background: white; color: var(--color-primary); border: 2px solid var(--border);">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Portal
+                </a>
+                <a href="/" class="nav-brand"><i class="fa-solid fa-house"></i> Home</a>
+            </div>
+            <h1 class="page-title">Rahim's Family</h1>
+            <div id="story-assignment-badge" style="display: none; font-size: 0.85em; font-weight: 700; color: #0284c7; background: #e0f2fe; padding: 6px 12px; border-radius: 16px;">
+                🎒 Assigned Activity
+            </div>
+        </div>
+
+        <form id="story-form" class="character-list">
+            <!-- Rahim -->
+            <div class="character-card">
+                <div class="char-info">
+                    <div class="char-avatar">👦🏽</div>
+                    <div class="char-details">
+                        <h3>Rahim</h3>
+                        <p id="rahim-status" class="status-badge status-ready"><i class="fa-solid fa-check"></i> Ready</p>
+                    </div>
+                </div>
+                <div class="char-actions">
+                    <label class="btn btn-draw">
+                        <input type="file" id="file-rahim" accept="image/*" style="display: none;" onchange="handleFileSelect('rahim')">
+                        <i class="fa-solid fa-pencil"></i> Draw
+                    </label>
+                    <button type="button" class="btn btn-fix" onclick="goToFixer('rahim')" title="Fix Drawing"><i class="fa-solid fa-wrench"></i> Fix</button>
+                    <button type="button" class="btn btn-icon-danger" onclick="clearSlot('rahim')" id="rahim-clear" style="display:none;"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-icon-warning" onclick="retrySlot('rahim')" id="rahim-retry" style="display:none;"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Sister -->
+            <div class="character-card">
+                <div class="char-info">
+                    <div class="char-avatar">👧🏽</div>
+                    <div class="char-details">
+                        <h3>Sister</h3>
+                        <p id="sister-status" class="status-badge status-ready"><i class="fa-solid fa-check"></i> Ready</p>
+                    </div>
+                </div>
+                <div class="char-actions">
+                    <label class="btn btn-draw">
+                        <input type="file" id="file-sister" accept="image/*" style="display: none;" onchange="handleFileSelect('sister')">
+                        <i class="fa-solid fa-pencil"></i> Draw
+                    </label>
+                    <button type="button" class="btn btn-fix" onclick="goToFixer('sister')" title="Fix Drawing"><i class="fa-solid fa-wrench"></i> Fix</button>
+                    <button type="button" class="btn btn-icon-danger" onclick="clearSlot('sister')" id="sister-clear" style="display:none;"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-icon-warning" onclick="retrySlot('sister')" id="sister-retry" style="display:none;"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Mother -->
+            <div class="character-card">
+                <div class="char-info">
+                    <div class="char-avatar">👩🏽</div>
+                    <div class="char-details">
+                        <h3>Mother</h3>
+                        <p id="mother-status" class="status-badge status-ready"><i class="fa-solid fa-check"></i> Ready</p>
+                    </div>
+                </div>
+                <div class="char-actions">
+                    <label class="btn btn-draw">
+                        <input type="file" id="file-mother" accept="image/*" style="display: none;" onchange="handleFileSelect('mother')">
+                        <i class="fa-solid fa-pencil"></i> Draw
+                    </label>
+                    <button type="button" class="btn btn-fix" onclick="goToFixer('mother')" title="Fix Drawing"><i class="fa-solid fa-wrench"></i> Fix</button>
+                    <button type="button" class="btn btn-icon-danger" onclick="clearSlot('mother')" id="mother-clear" style="display:none;"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-icon-warning" onclick="retrySlot('mother')" id="mother-retry" style="display:none;"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Father -->
+            <div class="character-card">
+                <div class="char-info">
+                    <div class="char-avatar">👨🏽</div>
+                    <div class="char-details">
+                        <h3>Father</h3>
+                        <p id="father-status" class="status-badge status-ready"><i class="fa-solid fa-check"></i> Ready</p>
+                    </div>
+                </div>
+                <div class="char-actions">
+                    <label class="btn btn-draw">
+                        <input type="file" id="file-father" accept="image/*" style="display: none;" onchange="handleFileSelect('father')">
+                        <i class="fa-solid fa-pencil"></i> Draw
+                    </label>
+                    <button type="button" class="btn btn-fix" onclick="goToFixer('father')" title="Fix Drawing"><i class="fa-solid fa-wrench"></i> Fix</button>
+                    <button type="button" class="btn btn-icon-danger" onclick="clearSlot('father')" id="father-clear" style="display:none;"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-icon-warning" onclick="retrySlot('father')" id="father-retry" style="display:none;"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Grandma -->
+            <div class="character-card">
+                <div class="char-info">
+                    <div class="char-avatar">👵🏽</div>
+                    <div class="char-details">
+                        <h3>Grandma</h3>
+                        <p id="grandma-status" class="status-badge status-ready"><i class="fa-solid fa-check"></i> Ready</p>
+                    </div>
+                </div>
+                <div class="char-actions">
+                    <label class="btn btn-draw">
+                        <input type="file" id="file-grandma" accept="image/*" style="display: none;" onchange="handleFileSelect('grandma')">
+                        <i class="fa-solid fa-pencil"></i> Draw
+                    </label>
+                    <button type="button" class="btn btn-fix" onclick="goToFixer('grandma')" title="Fix Drawing"><i class="fa-solid fa-wrench"></i> Fix</button>
+                    <button type="button" class="btn btn-icon-danger" onclick="clearSlot('grandma')" id="grandma-clear" style="display:none;"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-icon-warning" onclick="retrySlot('grandma')" id="grandma-retry" style="display:none;"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Grandpa -->
+            <div class="character-card">
+                <div class="char-info">
+                    <div class="char-avatar">👴🏽</div>
+                    <div class="char-details">
+                        <h3>Grandpa</h3>
+                        <p id="grandpa-status" class="status-badge status-ready"><i class="fa-solid fa-check"></i> Ready</p>
+                    </div>
+                </div>
+                <div class="char-actions">
+                    <label class="btn btn-draw">
+                        <input type="file" id="file-grandpa" accept="image/*" style="display: none;" onchange="handleFileSelect('grandpa')">
+                        <i class="fa-solid fa-pencil"></i> Draw
+                    </label>
+                    <button type="button" class="btn btn-fix" onclick="goToFixer('grandpa')" title="Fix Drawing"><i class="fa-solid fa-wrench"></i> Fix</button>
+                    <button type="button" class="btn btn-icon-danger" onclick="clearSlot('grandpa')" id="grandpa-clear" style="display:none;"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-icon-warning" onclick="retrySlot('grandpa')" id="grandpa-retry" style="display:none;"><i class="fa-solid fa-rotate-right"></i></button>
+                </div>
+            </div>
+
+            <button type="button" id="generate-btn" class="btn-large" onclick="generateStory()"><i class="fa-solid fa-video"></i> Make Video!</button>
+        </form>
+
+        <div id="video-container" class="video-container" style="display: none;">
+            <h3 class="page-title" style="margin-bottom: 16px;"><i class="fa-solid fa-star"></i> Your Story!</h3>
+            <div id="video-error" class="alert-error" style="display:none;"></div>
+            <div class="video-wrapper">
+                <video id="result-video" controls></video>
+                <div id="play-overlay" class="play-overlay" style="display:none;">
+                    <i class="fa-solid fa-circle-play play-overlay-icon"></i>
+                </div>
+            </div>
+            <div id="video-finish-actions" style="margin-top: 24px; display: flex; justify-content: center; gap: 16px;">
+                <a id="finish-return-btn" href="http://localhost:5173" class="btn-large" style="text-decoration: none; background: #22c55e; color: white; display: inline-flex; align-items: center; gap: 10px; font-weight: 700;">
+                    <i class="fa-solid fa-circle-check"></i> Finished! Back to EduVision
+                </a>
+            </div>
+        </div>
+
+        <div id="log-container" class="log-container" style="display: none;">
+            <div id="log-console" class="animate-bounce"><i class="fa-solid fa-wand-magic-sparkles"></i> Getting ready...</div>
+        </div>
+    </div>
+
+    
+    <script>
+        // Logging & Tracing
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+        window.correlationId = generateUUID();
+        
+        const originalFetch = window.fetch;
+        window.fetch = async function() {
+            let [resource, config] = arguments;
+            if (!config) config = {};
+            if (!config.headers) config.headers = {};
+            if (config.headers instanceof Headers) {
+                config.headers.append('X-Correlation-Id', window.correlationId);
+            } else {
+                config.headers['X-Correlation-Id'] = window.correlationId;
+            }
+            return await originalFetch(resource, config);
+        };
+
+        const SLOTS = ['rahim', 'sister', 'mother', 'father', 'grandma', 'grandpa'];
+        let activeJobs = {};
+
+        window.onload = () => {
+            SLOTS.forEach(slot => {
+                const charDir = sessionStorage.getItem('story_slot_' + slot);
+                if (charDir) {
+                    document.getElementById(slot + '-status').innerHTML = '<i class="fa-solid fa-check"></i> Ready';
+                    document.getElementById(slot + '-clear').style.display = 'inline-block';
+                } else {
+                    document.getElementById(slot + '-status').innerHTML = '<i class="fa-solid fa-check"></i> Ready';
+                }
+            });
+            updateButtons();
+        };
+
+        async function handleFileSelect(slot) {
+            const input = document.getElementById('file-' + slot);
+            if (input.files && input.files[0]) {
+                const formData = new FormData();
+                formData.append(slot, input.files[0]);
+                
+                document.getElementById(slot + '-status').className = 'status-badge status-wait';
+                document.getElementById(slot + '-status').innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
+                document.getElementById(slot + '-clear').style.display = 'inline-block';
+                document.getElementById(slot + '-retry').style.display = 'none';
+                updateButtons();
+                
+                try {
+                    const res = await fetch('/api/story/prepare', { method: 'POST', body: formData });
+                    const data = await res.json();
+                    if (data.success) {
+                        const jobId = data.jobId;
+                        activeJobs[slot] = setInterval(() => pollSlot(jobId, slot), 1000);
+                        updateButtons();
+                    } else {
+                        document.getElementById(slot + '-status').className = 'status-badge status-wait';
+                        document.getElementById(slot + '-status').innerHTML = '<span style="color: #ef4444;"><i class="fa-solid fa-xmark"></i> Failed</span>';
+                        document.getElementById(slot + '-retry').style.display = 'inline-block';
+                        updateButtons();
+                    }
+                } catch(e) {
+                    document.getElementById(slot + '-status').className = 'status-badge status-wait';
+                    document.getElementById(slot + '-status').innerHTML = '<span style="color: #ef4444;"><i class="fa-solid fa-xmark"></i> Error</span>';
+                    document.getElementById(slot + '-retry').style.display = 'inline-block';
+                    updateButtons();
+                }
+            }
+        }
+        
+        async function pollSlot(jobId, slot) {
+            try {
+                const res = await fetch('/api/jobs/' + jobId);
+                const job = await res.json();
+                
+                if (job.error) return;
+                
+                if (job.characters && job.characters[slot]) {
+                    const charJob = job.characters[slot];
+                    const statusEl = document.getElementById(slot + '-status');
+                    if (charJob.status === 'RUNNING') {
+                        statusEl.className = 'status-badge status-wait';
+                        statusEl.innerHTML = '<span style="color: #fbbf24;"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</span>';
+                    } else if (charJob.status === 'QUEUED') {
+                        statusEl.className = 'status-badge status-wait';
+                        statusEl.innerHTML = '<span style="color: #94a3b8;"><i class="fa-solid fa-clock"></i> Wait</span>';
+                    } else if (charJob.status === 'READY') {
+                        statusEl.className = 'status-badge status-ready';
+                        statusEl.innerHTML = '<i class="fa-solid fa-check"></i> Ready';
+                        sessionStorage.setItem('story_slot_' + slot, charJob.charDir);
+                        document.getElementById(slot + '-clear').style.display = 'inline-block';
+                        document.getElementById(slot + '-retry').style.display = 'none';
+                        clearInterval(activeJobs[slot]);
+                        delete activeJobs[slot];
+                        updateButtons();
+                    } else if (charJob.status === 'FAILED') {
+                        statusEl.className = 'status-badge status-wait';
+                        statusEl.innerHTML = '<span style="color: #ef4444;"><i class="fa-solid fa-xmark"></i> Failed</span>';
+                        document.getElementById(slot + '-retry').style.display = 'inline-block';
+                        clearInterval(activeJobs[slot]);
+                        delete activeJobs[slot];
+                        updateButtons();
+                    }
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        function clearSlot(slot) {
+            sessionStorage.removeItem('story_slot_' + slot);
+            document.getElementById('file-' + slot).value = "";
+            document.getElementById(slot + '-status').className = 'status-badge status-ready';
+            document.getElementById(slot + '-status').innerHTML = '<i class="fa-solid fa-check"></i> Ready';
+            document.getElementById(slot + '-clear').style.display = 'none';
+            document.getElementById(slot + '-retry').style.display = 'none';
+            updateButtons();
+        }
+
+        function retrySlot(slot) {
+            document.getElementById(slot + '-retry').style.display = 'none';
+            document.getElementById(slot + '-status').className = 'status-badge status-wait';
+            document.getElementById(slot + '-status').innerHTML = '<span style="color: #94a3b8;">Wait...</span>';
+            updateButtons();
+            document.getElementById('file-' + slot).click();
+        }
+
+        function goToFixer(slot) {
+            window.location.href = '/fixer.html?returnUrl=/story.html&slot=' + slot;
+        }
+
+        function updateButtons() {
+            const genBtn = document.getElementById('generate-btn');
+            
+            let anyNotReady = false;
+            SLOTS.forEach(s => {
+                const status = document.getElementById(s + '-status').innerText;
+                if (!status.includes("Ready")) {
+                    anyNotReady = true;
+                }
+            });
+            
+            const isPolling = Object.keys(activeJobs).length > 0;
+            
+            if (anyNotReady || isPolling) {
+                genBtn.disabled = true;
+                genBtn.innerText = "Wait...";
+            } else {
+                genBtn.disabled = false;
+                genBtn.innerHTML = '<i class="fa-solid fa-video"></i> Make Video!';
+            }
+        }
+
+
+
+        async function generateStory() {
+            const btn = document.getElementById('generate-btn');
+            btn.disabled = true;
+            btn.innerText = "Making your story... ✨";
+            
+            document.getElementById('log-container').style.display = 'block';
+            const logConsole = document.getElementById('log-console');
+            logConsole.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> Getting ready...';
+            
+            let es = new EventSource('/api/logs/stream');
+            es.onmessage = function(event) {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data.progress_event) {
+                        logConsole.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ' + data.message;
+                        if (data.stage === "COMPLETED") {
+                            logConsole.innerHTML = '<i class="fa-solid fa-check"></i> Story ready!';
+                        }
+                    }
+                } catch(e) {
+                    // Ignore raw logs
+                }
+            };
+
+            const characters = {};
+            SLOTS.forEach(slot => {
+                characters[slot] = sessionStorage.getItem('story_slot_' + slot) || slot;
+            });
+            
+            try {
+                const res = await fetch('/api/story/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ storyId: 'rahims_story', characters: characters })
+                });
+                const data = await res.json();
+                
+                if (data.success) {
+                    const jobId = data.jobId;
+                    
+                    const pollInt = setInterval(async () => {
+                        try {
+                            const jobRes = await fetch('/api/jobs/' + jobId);
+                            const job = await jobRes.json();
+                            
+                            if (job.status === 'COMPLETED') {
+                                clearInterval(pollInt);
+                                es.close();
+                                
+                                const videoContainer = document.getElementById('video-container');
+                                const videoError = document.getElementById('video-error');
+                                const videoEl = document.getElementById('result-video');
+                                const playOverlay = document.getElementById('play-overlay');
+                                
+                                videoContainer.style.display = 'block';
+                                videoError.style.display = 'none';
+                                playOverlay.style.display = 'none';
+                                
+                                if (!job.finalVideoUrl) {
+                                    videoError.textContent = "Error: Video URL is missing from the response.";
+                                    videoError.style.display = 'block';
+                                    logConsole.innerHTML = '<span style="color: #ef4444;"><i class="fa-solid fa-xmark"></i> Missing video resource</span>';
+                                    btn.disabled = false;
+                                    btn.innerHTML = '<i class="fa-solid fa-video"></i> Make Video!';
+                                    return;
+                                }
+
+                                videoEl.src = job.finalVideoUrl;
+                                logConsole.innerHTML = '<i class="fa-solid fa-check"></i> Story ready!';
+                                
+                                videoEl.onerror = () => {
+                                    videoError.textContent = "Error: Failed to load the video resource.";
+                                    videoError.style.display = 'block';
+                                    logConsole.innerHTML = '<span style="color: #ef4444;"><i class="fa-solid fa-xmark"></i> Video playback failed</span>';
+                                };
+                                
+                                videoEl.onloadeddata = () => {
+                                    const playPromise = videoEl.play();
+                                    if (playPromise !== undefined) {
+                                        playPromise.catch(error => {
+                                            console.warn("Autoplay prevented:", error);
+                                            playOverlay.style.display = 'flex';
+                                            playOverlay.onclick = () => {
+                                                playOverlay.style.display = 'none';
+                                                videoEl.play();
+                                            };
+                                        });
+                                    }
+                                };
+                                
+                                videoEl.load();
+                                
+                                const token = localStorage.getItem('eduvision_token');
+                                const assignmentId = localStorage.getItem('eduvision_assignment');
+                                
+                                if (token) {
+                                    fetch('http://localhost:4000/api/portal/student/stories', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+                                        body: JSON.stringify({
+                                            title: "Rahim's Family",
+                                            prompt: "Generated story via replica",
+                                            videoUrl: job.finalVideoUrl,
+                                            status: "COMPLETED"
+                                        })
+                                    }).catch(e => console.error("Failed to save story to DB", e));
+                                    
+                                    if (assignmentId) {
+                                        fetch('http://localhost:4000/api/integrations/results', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+                                            body: JSON.stringify({
+                                                assignmentId: assignmentId,
+                                                score: 100,
+                                                status: "COMPLETED",
+                                                details: { videoUrl: job.finalVideoUrl }
+                                            })
+                                        }).catch(e => console.error("Failed to save result to DB", e));
+                                    }
+                                }
+
+                                btn.disabled = false;
+                                btn.innerHTML = '<i class="fa-solid fa-video"></i> Make Video!';
+                            } else if (job.status === 'FAILED') {
+                                clearInterval(pollInt);
+                                es.close();
+                                logConsole.innerHTML = '<span style="color: #ef4444;"><i class="fa-solid fa-xmark"></i> Story generation failed</span>';
+                                btn.disabled = false;
+                                btn.innerText = "Retry Video";
+                            }
+                        } catch(err) {
+                            console.error(err);
+                        }
+                    }, 2000);
+                    return;
+                } else {
+                    logConsole.innerHTML = '<span style="color: #ef4444;"><i class="fa-solid fa-xmark"></i> Story generation failed: ' + data.error + '</span>';
+                    alert("Error: " + data.error);
+                }
+            } catch (e) {
+                console.error(e);
+                logConsole.innerHTML = '<span style="color: #ef4444;"><i class="fa-solid fa-xmark"></i> Network error</span>';
+                alert("Failed to connect to server.");
+            }
+            
+            if (es) es.close();
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-video"></i> Make Video!';
+        }
+
+        // Configure return navigation and assignment badges
+        (function() {
+            const savedReturnUrl = localStorage.getItem('eduvision_return_url') || 'http://localhost:5173';
+            const navReturn = document.getElementById('nav-return-portal');
+            const finishReturn = document.getElementById('finish-return-btn');
+            if (navReturn) navReturn.href = savedReturnUrl;
+            if (finishReturn) finishReturn.href = savedReturnUrl;
+
+            const assignmentId = localStorage.getItem('eduvision_assignment');
+            if (assignmentId) {
+                const badge = document.getElementById('story-assignment-badge');
+                if (badge) badge.style.display = 'block';
+            }
+
+            // Warn before leaving if story is actively generating
+            window.addEventListener('beforeunload', (e) => {
+                const isGenerating = Object.keys(activeJobs).length > 0;
+                if (isGenerating) {
+                    e.preventDefault();
+                    e.returnValue = 'Story generation is currently in progress. If you leave now, your story may not finish.';
+                }
+            });
+        })();
+    </script>
+
+</body>
+</html>
+
+
